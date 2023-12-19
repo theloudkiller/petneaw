@@ -192,5 +192,5 @@ module.exports = {
   getDoctorByIdController,
   doctorAppointmentsController,
   updateStatusController,
-  updateProfileControllers,
+  
 };

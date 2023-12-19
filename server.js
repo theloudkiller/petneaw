@@ -15,7 +15,7 @@ connectDB();
 //rest obejct
 const app = express();
 
-const newRoutes = require('./routes/newRoutes');
+
 
 const cors = require('cors');
 app.use(cors());
@@ -32,7 +32,7 @@ app.use("/api/v1/user", require("./routes/userRoutes"));
 app.use("/api/v1/admin", require("./routes/adminRoutes"));
 app.use("/api/v1/doctor", require("./routes/doctorRoutes"));
 
-app.use('/api/v1/new', newRoutes);
+
 
 //static files
 app.use(express.static(path.join(__dirname, "./client/build")));

@@ -18,7 +18,7 @@ router.post("/getDoctorInfo", authMiddleware, getDoctorInfoController);
 
 //POST UPDATE PROFILE
 router.post("/updateProfile", authMiddleware, updateProfileController);
-router.post("/updateProfiles", authMiddleware, updateProfileControllers);
+
 
 //POST  GET SINGLE DOC INFO
 router.post("/getDoctorById", authMiddleware, getDoctorByIdController);
@@ -36,6 +36,6 @@ router.get(
 //POST Update Status
 router.post("/update-status", authMiddleware, updateStatusController);
 
-router.post('/addPatient', addPatient);
+
 
 module.exports = router;
