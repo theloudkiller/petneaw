@@ -16,7 +16,7 @@ const {
   getBookedTimeSlots,
   fetchAvailability,
   getbookedappointment,
-  getAvailableTimeSlotsController
+  getAvailableTimeSlotsController,
 
 } = require("../controllers/userCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -24,8 +24,12 @@ const State = require("../models/stateModel");
 const Clinic = require("../models/clinicModel");
 const appointmentModel = require("../models/appointmentModel");
 
+
+
 //router onject
 const router = express.Router();
+
+
 
 //routes
 //LOGIN || POST
@@ -33,6 +37,8 @@ router.post("/login", loginController);
 
 //REGISTER || POST
 router.post("/register", registerController);
+
+
 
 router.post("/getAvailableTimeSlots", authMiddleware, getAvailableTimeSlotsController);
 
@@ -66,6 +72,7 @@ router.get("/getAllClinic", authMiddleware, getAllClinicController);
 
 //BOOK APPOINTMENT
 router.post("/book-appointment", authMiddleware, bookeAppointmnetController);
+
 
 //Booking Avliability
 router.post(
@@ -239,4 +246,8 @@ router.get('/appointments', async (req, res) => {
 
 
 
-module.exports = router;
+
+
+
+
+module.exports = router;  

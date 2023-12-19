@@ -1,8 +1,10 @@
-const patientSchema = require("../models/Patient");
+
 const appointmentModel = require("../models/appointmentModel");
-const createPatientModel = require("../models/createPatientModel");
+
 const doctorModel = require("../models/doctorModel");
 const userModel = require("../models/userModels");
+const Patient = require('../models/patientmodel');
+
 const getDoctorInfoController = async (req, res) => {
   try {
     const doctor = await doctorModel.findOne({ userId: req.body.userId });
@@ -22,14 +24,16 @@ const getDoctorInfoController = async (req, res) => {
 };
 
 // update doc profile
-const updateProfileControllers = async (req, res) => {
+const updateProfileControllerssss = async (req, res) => {
   try {
     const doctor = await doctorModel.findOneAndUpdate(
       { userId: req.body.userId },
       {timeSlots: req.body.timeSlots || []},
       req.body
       
+      
     );
+    
     res.status(201).send({
       success: true,
       message: "Doctor Profile Updated",
@@ -44,6 +48,18 @@ const updateProfileControllers = async (req, res) => {
     });
   }
 };
+
+exports.addPatient = async (req, res) => {
+  try {
+      const newPatient = new Patient(req.body);
+      await newPatient.save();
+      res.status(201).json({ message: 'Patient added successfully', data: newPatient });
+  } catch (error) {
+      res.status(500).json({ message: 'Error adding patient', error: error.message });
+  }
+};
+
+
 
 const updateProfileController = async (req, res) => {
   try {
@@ -168,39 +184,13 @@ const updateStatusController = async (req, res) => {
   }
 };
 
-const addPatientController = async (req, res) => {
-  try {
-    const { clinicEmail, patientData } = req.body;
-    const Patient = patientSchema(clinicEmail);
-    const newPatient = new Patient(patientData);
-    await newPatient.save();
 
-    res.status(200).json({ success: true, data: newPatient });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
-
-const searchPatientController = async (req, res) => {
-  try {
-    const { clinicEmail, searchTerm } = req.query;
-    const Patient = patientSchema(clinicEmail);
-    const patients = await Patient.find({
-      name: { $regex: searchTerm, $options: 'i' },
-    });
-
-    res.status(200).json({ success: true, data: patients });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
 
 module.exports = {
   getDoctorInfoController,
   updateProfileController,
   getDoctorByIdController,
   doctorAppointmentsController,
-  addPatientController,
   updateStatusController,
-  searchPatientController,
+  updateProfileControllers,
 };
